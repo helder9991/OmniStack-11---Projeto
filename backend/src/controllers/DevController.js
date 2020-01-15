@@ -15,7 +15,7 @@ module.exports = {
         
         let dev = Dev.findOne({ github_username });
 
-        if(dev)
+        if(!dev)
             return res.status(400).json('User already exists');
 
         const response = await axios.get(`https://api.github.com/users/${github_username}`);
@@ -31,6 +31,7 @@ module.exports = {
     
         dev = await Dev.create({
             name,
+            github_username,
             avatar_url,
             bio,
             techs: techsArray,
